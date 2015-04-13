@@ -1,0 +1,6 @@
+%tr
+	%td= test.id
+	%td= test.title
+	%td= test.description
+	%td= link_to "Edit", edit_test_path(test)
+	%td= link_to "Delete", test_path(test) , method: :delete
