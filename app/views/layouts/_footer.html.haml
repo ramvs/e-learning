@@ -1,0 +1,11 @@
+%footer.footer
+  %small
+    Publikacje by ...
+  %nav
+    %ul
+      - if user_signed_in?
+        %li
+          Zalogowany jako #{current_user.email} |
+      %li= link_to "Home", root_path
+      %li= link_to "About", '#'
+      %li= link_to "Contact", '#'
