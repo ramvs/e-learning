@@ -29,7 +29,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap_form'
 #--------BOOTSTRAP--------
-gem "therubyracer"
+gem 'therubyracer', :platform => :ruby
 gem "less-rails"
 gem "twitter-bootstrap-rails"
 gem 'rails_bootstrap_navbar'
