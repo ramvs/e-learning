@@ -1,0 +1,12 @@
+.well
+  #newRoom
+    %fieldset
+      %legend Stwórz nowy pokój
+      = form_for(@new_room) do |f|
+        Nazwa pokoju #{f.text_field :name}
+        %br/
+        %br/
+        Czy ma być publiczny?#{f.check_box :public}
+        %br/
+        %br/
+        = f.submit

@@ -1,9 +1,17 @@
 Rails.application.routes.draw do
+  root 'static_pages#home'
+
+  get 'room/index'
+
+  get 'room/create'
+
+  get 'room/party'
 
   get 'static_pages/home'
-  root 'static_pages#home'
+  match '/party/:id', :to => "rooms#party", :as => :party, :via => :get
   devise_for :users
   resources :tests
+  resources :rooms
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
