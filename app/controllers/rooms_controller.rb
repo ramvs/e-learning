@@ -14,8 +14,7 @@ class RoomsController < ApplicationController
   def create
     params.permit!
     @new_room = Room.new(params[:room])
-    @@opentok_token = OpenTokService.new(@new_room).generate_token
-
+    opentok_token = OpenTokService.new(@new_room).generate_token
     respond_to do |format|
       if @new_room.save
         format.html {redirect_to("/party/"+@new_room.id.to_s) }
@@ -27,8 +26,11 @@ class RoomsController < ApplicationController
 
   def party
     @apiKey = Rails.application.secrets.open_tok_API_key
-    @user_name = current_user.email
-    @tok_token = @@opentok_token
+    if current_user.present?
+      @user_name = current_user.email
+    end
+
+    @tok_token = opentok_token = OpenTokService.new(@room).generate_token
   end
 
   private
