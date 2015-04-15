@@ -1,0 +1,16 @@
+
+%div.row
+	%div.col-md-8
+		%div.panel.panel-default
+			%div.panel-heading Courses list
+			- if @courses.any?
+				%table.table
+					= render @courses
+			- else
+				%strong No courses found
+	%div.col-md-4
+		%div.panel.panel-default
+			%div.panel-heading Courses toolbar
+			%div.panel-body
+				%ul
+					%li= link_to "New course" , new_course_path

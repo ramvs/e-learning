@@ -33,6 +33,10 @@ gem 'therubyracer', :platform => :ruby
 gem "less-rails"
 gem "twitter-bootstrap-rails"
 gem 'rails_bootstrap_navbar'
+
+gem 'draper', '~> 1.3'
+gem 'gon'
+gem 'autosize-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

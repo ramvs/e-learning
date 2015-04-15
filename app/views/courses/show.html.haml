@@ -1,0 +1,17 @@
+%div.row
+	%div.col-md-8
+		%div.panel.panel-default
+			%div.panel-heading= @course.title
+			%div.panel-body= @course.description
+			%div.panel-footer
+				%span
+					=course.edit_link
+					=course.destroy_link
+	%div.col-md-4
+		%div.panel.panel-default
+			%div.panel-heading 
+				Lessons
+				%span.pull-right= course.lessonsCount
+			%div= course.renderLessons
+			%div.panel-footer
+				=course.newLessonLink
