@@ -3,10 +3,11 @@
     = navbar_collapse do
       = navbar_group align: 'right' do
         = navbar_item fa_icon("home", text: "Home"), root_path
+        = navbar_item fa_icon("video-camera", text: "Rooms"), rooms_path
         - if user_signed_in?
           = navbar_item fa_icon("book", text: "Courses") , courses_path
-          = navbar_item fa_icon("edit", text: "Edit profile"), edit_user_registration_path
-          = navbar_item fa_icon("sign-out ", text: "Logout"), destroy_user_session_path ,{},  {'data-method' => 'delete'} 
+          = navbar_item fa_icon("edit", text: "Profile"), user_path(current_user)
+          = navbar_item fa_icon("sign-out ", text: "Logout"), destroy_user_session_path ,{},  {'data-method' => 'delete'}
         - else
           = navbar_item fa_icon("arrow-circle-up", text: "Sign up"), new_user_registration_path
           = navbar_item fa_icon("sign-in ", text: "Login"), new_user_session_path

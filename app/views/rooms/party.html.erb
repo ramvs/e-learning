@@ -1,0 +1,77 @@
+<!-- <div id="invitation">Witaj w kanale  <%=@room_name%> Zaproś znajomych do konferencji dzięląć się tym liniem http://localhost:3000/party/<%= @room.id %></div> -->
+<!-- <p><%=@room_name%></p> -->
+ <div id="layoutContainer">
+        <div id="publisherContainer"></div>
+</div>
+
+
+ <script src="https://swww.tokbox.com/webrtc/v2.2/js/TB.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="https://code.jquery.com/jquery-1.6.2.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="https://rawgit.com/aullman/opentok-layout-js/master/opentok-layout.js" type="text/javascript" charset="utf-8"></script>
+      <style type="text/css" media="screen">
+
+         #layoutContainer {
+                position: absolute;
+                top: 110px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+
+            }
+
+            #layoutContainer > div {
+                display: inline-block;
+                border: 1px solid #fff;
+            }
+    </style>
+<script type="text/javascript">
+
+
+//////////////////////////////////////////////////
+
+  var apiKey =  "<%= @apiKey %>";
+  var sessionId = "<%= @room.sessionId %>";
+  var token = "<%= @tok_token %>";
+  var name = "<%= @user_name %>";
+  var session;
+   var layoutContainer = document.getElementById("layoutContainer");
+
+    var layout = TB.initLayoutContainer(layoutContainer).layout;
+
+ var session = TB.initSession(sessionId);
+    session.on("streamCreated", function(event){
+        session.subscribe(event.stream, "layoutContainer", {
+            insertMode: "append"
+        });
+        layout();
+    }).connect(apiKey, token, function (err) {
+        if (!err) {
+            var publisher = OT.initPublisher("publisherContainer",{name: "<%= @user_name %>" });
+            session.publish(publisher);
+            layout();
+        }
+    });
+var resizeTimeout;
+        window.onresize = function() {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(function () {
+            layout();
+          }, 20);
+        };
+
+        $("#layoutContainer>*").live("dblclick", function () {
+            if ($(this).hasClass("OT_big")) {
+                $(this).removeClass("OT_big");
+            } else {
+                $(this).addClass("OT_big");
+            }
+            layout();
+        });
+
+
+
+
+
+</script>
+<!--   <input type="button" value="Connect" id ="connectLink" onClick="javascript:signal()" />
+ -->
