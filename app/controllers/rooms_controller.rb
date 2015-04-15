@@ -1,11 +1,12 @@
 require "opentok"
 class RoomsController < ApplicationController
-  before_filter :config_opentok,:except => [:index]
   before_filter :current_room, :only => [:destroy,:party]
   def index
     @rooms = Room.where(public: true).order("created_at DESC")
     @new_room = Room.new
   end
+
+
 
   def new
   end
@@ -28,13 +29,6 @@ class RoomsController < ApplicationController
     @apiKey = Rails.application.secrets.open_tok_API_key
     @user_name = current_user.email
     @tok_token = @@opentok_token
-  end
-
-  private
-  def config_opentok
-    if @opentok.nil?
-      @opentok = OpenTok::OpenTok.new Rails.application.secrets.open_tok_API_key, Rails.application.secrets.open_tok_API_secret
-    end
   end
 
   private
