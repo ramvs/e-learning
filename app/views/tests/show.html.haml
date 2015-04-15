@@ -1,10 +1,22 @@
+.row
+	.col-md-8
+		.panel.panel-default
+			.panel-heading 
+				Test details
+				%span.pull-right
+					= test.edit_link
+					= test.manage_questions_link
+					= test.destroy_link
+			.panel-body
+				%div
+					%strong Title:
+					= test.title
+				%div
+					%strong Descripton:
+					= test.show_description
 
-
-%h3 Test details
-
-%div
-	%strong Title:
-	= @test.title
-%div
-	%strong Descripton:
-	= @test.description
+.row
+	.col-md-8
+		.panel.panel-default
+			.panel-heading Questions
+			.panel-body

@@ -4,8 +4,17 @@ Rails.application.routes.draw do
   root 'static_pages#home'
   devise_for :users
   resources :tests
+  
   resources :courses do
     resources :lessons
+  end
+
+  resources :lessons do
+    resources :tests
+  end
+
+  resources :tests do
+    resources :questions
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
