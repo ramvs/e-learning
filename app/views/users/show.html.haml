@@ -1,0 +1,23 @@
+%body
+  .container
+    .col-md-6
+      .well
+        %h1
+          = 'Hello' + "  " + current_user.email
+        %p
+          %b Email:
+          = current_user.email
+          %br
+
+    .col-md-6
+      .well
+        %h1
+          = "Available rooms"
+        %table{:class => "table table-hover"}
+          %tr
+            %th Room name
+            %th Link to room
+          - current_user.rooms.each do |room|
+            %tr
+              %td= room.name
+              %td= link_to("click",party_path(room.id))
