@@ -10,6 +10,7 @@ class QuestionsController < ApplicationController
 
 	def new
 		@question = @test.questions.build
+		@create = true
 	end
 
 	def edit
@@ -18,16 +19,17 @@ class QuestionsController < ApplicationController
 
 	def update
 		if @question.update_attributes(question_params)
-			redirect_to test_questions_path(@test)
+			redirect_to lesson_test_path(@test.lesson,@test)
 		else
 			render 'new'
 		end
 	end
 
 	def create
-		@question = @test.questions.create(question_params)
+		@question = Question.create(question_params)
+		@question.test = @test
 		if @question.save
-			redirect_to test_questions_path(@test)
+			redirect_to edit_test_question_path(@test,@question)
 		else
 			render 'new'
 		end
@@ -45,7 +47,8 @@ class QuestionsController < ApplicationController
 		end
 
 		def question_params
-			params.require(:question).permit(:content)
+			params.require(:question).permit(:content,anserws_attributes: 
+				[:id, :content , :correct , :_destroy])
 		end
 
 		def find_question
