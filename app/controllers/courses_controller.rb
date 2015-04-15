@@ -1,15 +1,15 @@
 class CoursesController < ApplicationController
-	before_filter :find_course , only: [:show,:edit,:update]
-
+	before_filter :find_course , only: [:show,:edit,:update,:destroy]
+	decorates_assigned :course
+	
 	def index
-		@courses = Course.all
+		@courses = Course.all.decorate
 	end
 
 	def show
 	end
 
 	def edit
-		@title = "Edit - #{@course.title}"
 		render 'newedit'
 	end
 
@@ -17,14 +17,12 @@ class CoursesController < ApplicationController
 		if @course.update_attributes(course_params)
 			redirect_to @course
 		else
-			@title = "Edit - #{@course.title}"
 			render 'newedit'
 		end
 	end
 
 	def new
 		@course = Course.new
-		@title = "New course"
 		render 'newedit'
 	end
 
@@ -33,7 +31,15 @@ class CoursesController < ApplicationController
 		if @course.save
 			redirect_to @course
 		else
-			render 'new'
+			render 'newedit'
+		end
+	end
+
+	def destroy
+		result = @course.destroy
+		respond_to do |format|
+			format.html {redirect_to courses_path}
+			format.js { @id = result ? result.id : ""}
 		end
 	end
 

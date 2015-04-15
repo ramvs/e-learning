@@ -1,5 +1,6 @@
-%tr
+%tr{id:"#{course.idText}"}
 	%td
-		= link_to course.title , course
+		= link_to course.title , course_path(course)
 		%span.pull-right	
-			= tag_label link_to("Edit",edit_course_path(course)) , :success
+			= tag_label course.edit_link , :success
+			= tag_label course.destroy_link(remote: true), :danger
