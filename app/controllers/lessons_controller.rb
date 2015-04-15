@@ -32,8 +32,11 @@ class LessonsController < ApplicationController
 	end
 
 	def destroy
-		@lesson.destroy
-		redirect_to @course
+		result = @lesson.destroy
+		respond_to do |format|
+			format.html {redirect_to @course}
+			format.js { @id = result ? result.id : "" }
+		end
 	end
 
 	private

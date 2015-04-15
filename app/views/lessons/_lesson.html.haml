@@ -1,0 +1,5 @@
+%li.list-group-item{id: "#{lesson.idText}"}
+	= lesson.title
+	%span.pull-right
+		= lesson.edit_link
+		= lesson.destroy_link(remote: true)

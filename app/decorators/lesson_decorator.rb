@@ -1,5 +1,6 @@
 class LessonDecorator < Draper::Decorator
   delegate_all
+  decorates :lesson
 
   def courseLink
   	h.link_to object.courseTitle , object.course 
@@ -17,10 +18,14 @@ class LessonDecorator < Draper::Decorator
     h.tag_label h.link_to("Edit" , h.edit_course_lesson_path(object.course,object)) , :success
   end
 
-   def destroy_link remote = false
+  def destroy_link remote = false
     h.tag_label h.link_to("Delete" , h.course_lesson_path(object.course,object) , 
                           method: :delete , remote: remote,
                           data: {confirm: "Are you sure?"}) , :danger
+  end
+
+  def idText
+    "lesson#{model.id}"
   end
 
 end

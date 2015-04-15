@@ -9,8 +9,9 @@
 					=course.destroy_link
 	%div.col-md-4
 		%div.panel.panel-default
-			%div.panel-heading Lessons
-			%div.panel-body
-				=course.lessonsCount
+			%div.panel-heading 
+				Lessons
+				%span.pull-right= course.lessonsCount
+			%div= course.renderLessons
 			%div.panel-footer
 				=course.newLessonLink

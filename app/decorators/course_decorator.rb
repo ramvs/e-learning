@@ -1,6 +1,6 @@
 
 class CourseDecorator < Draper::Decorator
-  
+  decorates_association :lessons 
   delegate_all
 
   def panel_heading_title
@@ -29,12 +29,17 @@ class CourseDecorator < Draper::Decorator
   end
 
   def lessonsCount
-    count = object.lessons.count
-    if count == 0
-      h.content_tag(:strong,"There is no lessons in this course")
-    else
-      h.content_tag(:strong,h.pluralize(count,"lesson"))
-    end
+      count = model.lessons.count
+      h.badge(h.pluralize(count,"lesson"),:primary)
+  end
+
+  def renderLessons
+      if model.lessons.any?
+        h.content_tag(:ul, h.render(LessonDecorator.decorate_collection(model.lessons)),
+          class: "list-group")
+      else
+        h.content_tag(:strong,"No lessons in this course")
+      end
   end
 
 end
