@@ -1,0 +1,5 @@
+= bootstrap_form_for [lesson.course,lesson]  do |f|
+	=f.text_field :title , required: true
+	=f.text_field :description
+	=f.text_area :content 
+	=f.submit "Save" , class: "btn btn-primary"

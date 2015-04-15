@@ -1,0 +1,26 @@
+
+.row
+	.col-md-8
+		.panel.panel-default
+			.panel-heading
+				=lesson.title
+				%span.pull-right
+					=lesson.edit_link
+					=lesson.destroy_link
+			.panel-body.lesson-content
+				=lesson.content
+			.panel-heading
+				Timestamps
+	.col-md-4
+		.row
+			.panel.panel-default
+				.panel-heading
+					Lesson description
+				.panel-body
+					=lesson.description
+		.row
+			.panel.panel-default
+				.panel-heading
+					Attachments
+				.panel-body
+		

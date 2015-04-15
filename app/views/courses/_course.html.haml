@@ -2,5 +2,5 @@
 	%td
 		= link_to course.title , course_path(course)
 		%span.pull-right	
-			= tag_label course.edit_link , :success
-			= tag_label course.destroy_link(remote: true), :danger
+			= course.edit_link
+			= course.destroy_link(remote: true)
