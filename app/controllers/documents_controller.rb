@@ -1,11 +1,16 @@
 class DocumentsController < ApplicationController
 	before_filter :find_lesson , only: [:new,:create]
 	before_filter :find_document , only: [:edit,:update,:destroy]
+
 	def new
 		@document = @lesson.documents.build
+		authorize! :create , Document
+		authorize! :update, @lesson
 	end
 
 	def create
+		authorize! :create , Document
+		authorize! :update, @lesson
 		@document = @lesson.documents.create document_params
 		if @document.save
 			redirect_to [@lesson.course,@lesson]
@@ -15,10 +20,12 @@ class DocumentsController < ApplicationController
 	end
 
 	def edit
+		authorize! :update, @lesson
 		render 'new'
 	end
 
 	def update
+		authorize! :update, @lesson
 		if @document.update_attributes(document_params)
 			redirect_to [@lesson.course,@lesson]
 		else
@@ -27,11 +34,13 @@ class DocumentsController < ApplicationController
 	end
 
 	def destroy
+		authorize! :update, @lesson
 		@document.destroy
 		redirect_to [@lesson.course,@lesson]
 	end
 
 	private
+
 		def find_lesson
 			@lesson = Lesson.find(params[:lesson_id])
 		end

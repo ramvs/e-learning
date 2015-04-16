@@ -4,16 +4,20 @@ class CoursesController < ApplicationController
 	
 	def index
 		@courses = Course.all.decorate
+		authorize! :read, @courses
 	end
 
 	def show
+		authorize! :read , @course
 	end
 
 	def edit
+		authorize! :update , @course
 		render 'newedit'
 	end
 
 	def update
+		authorize! :update , @course
 		if @course.update_attributes(course_params)
 			redirect_to @course
 		else
@@ -22,11 +26,13 @@ class CoursesController < ApplicationController
 	end
 
 	def new
+		authorize! :create , Course
 		@course = Course.new
 		render 'newedit'
 	end
 
 	def create
+		authorize! :create , Course
 		@course = Course.new(course_params)
 		if @course.save
 			redirect_to @course
@@ -36,6 +42,7 @@ class CoursesController < ApplicationController
 	end
 
 	def destroy
+		authorize! :destroy , @course
 		result = @course.destroy
 		respond_to do |format|
 			format.html {redirect_to courses_path}
