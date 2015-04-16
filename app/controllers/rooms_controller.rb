@@ -25,6 +25,7 @@ class RoomsController < ApplicationController
   end
 
   def party
+    @skip_footer = true
     @apiKey = Rails.application.secrets.open_tok_API_key
     if current_user.present?
       @user_name = current_user.email

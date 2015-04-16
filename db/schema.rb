@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20150416090551) do
     t.boolean  "public"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "user_id"
     t.string   "description"
   end
 
@@ -103,6 +104,7 @@ ActiveRecord::Schema.define(version: 20150416090551) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "room_id"
     t.boolean  "admin",                  default: false
   end
 
