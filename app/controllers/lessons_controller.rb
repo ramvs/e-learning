@@ -19,7 +19,7 @@ class LessonsController < ApplicationController
 		authorize! :update , @course
 		@lesson = @course.lessons.create(lesson_params)
 		if @lesson.save
-			redirect_to [@lesson.course,@lesson]
+			redirect_to [@lesson.course,@lesson], flash: {notice:  "Lesson created."}
 		else
 			render 'new'
 		end
@@ -35,7 +35,7 @@ class LessonsController < ApplicationController
 		authorize! :update , @lesson
 		authorize! :update , @course
 		if @lesson.update_attributes(lesson_params)
-			redirect_to [@lesson.course,@lesson]
+			redirect_to [@lesson.course,@lesson], flash: {notice:  "Lesson updated."}
 		else
 			render 'new'
 		end
@@ -46,7 +46,7 @@ class LessonsController < ApplicationController
 		authorize! :update , @course
 		result = @lesson.destroy
 		respond_to do |format|
-			format.html {redirect_to @course}
+			format.html {redirect_to @course, flash: {danger:  "Lesson destroyed."} }
 			format.js { @id = result ? result.id : "" }
 		end
 	end

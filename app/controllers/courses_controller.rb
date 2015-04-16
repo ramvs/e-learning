@@ -19,7 +19,7 @@ class CoursesController < ApplicationController
 	def update
 		authorize! :update , @course
 		if @course.update_attributes(course_params)
-			redirect_to @course
+			redirect_to @course , flash: {notice:  "Course updated."}
 		else
 			render 'newedit'
 		end
@@ -35,7 +35,7 @@ class CoursesController < ApplicationController
 		authorize! :create , Course
 		@course = Course.new(course_params)
 		if @course.save
-			redirect_to @course
+			redirect_to @course, flash: {notice:  "Course created."}
 		else
 			render 'newedit'
 		end
@@ -45,7 +45,7 @@ class CoursesController < ApplicationController
 		authorize! :destroy , @course
 		result = @course.destroy
 		respond_to do |format|
-			format.html {redirect_to courses_path}
+			format.html {redirect_to courses_path, flash: {danger:  "Course deleted."}}
 			format.js { @id = result ? result.id : ""}
 		end
 	end

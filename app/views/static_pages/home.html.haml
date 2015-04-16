@@ -1,2 +1,9 @@
-%h1 StaticPages#home
-%p Find me in app/views/static_pages/home.html.haml
+.row
+	.col-md-8
+		.well{style: "height:400px;"}
+			%h1 Welcome in e-learning website
+			%h2 Currently available:
+			%h1
+				%span.label.label-primary= pluralize(@courses.count,"course")
+			%h1
+				%span.label.label-success= pluralize(@lessons,"lesson") 
