@@ -9,14 +9,22 @@ class TestDecorator < Draper::Decorator
     h.link_to model.title , [model.lesson,model]
   end
 
+  def lesson_link
+    model.lesson.decorate.show_link
+  end
+
 	def destroy_link remote=false
-    h.tag_label h.link_to("Delete" , h.lesson_test_path(object.lesson,object) , 
+    if h.can? :destroy , model
+      h.tag_label h.link_to("Delete" , h.lesson_test_path(object.lesson,object) , 
                         method: :delete , remote: remote,
                         data: {confirm: "Are you sure?"}) , :danger
+    end
 	end
 
 	def edit_link
-  	h.tag_label h.link_to("Edit" , h.edit_lesson_test_path(object.lesson,object)) , :success
+    if h.can? :update , model
+  	 h.tag_label h.link_to("Edit" , h.edit_lesson_test_path(object.lesson,object)) , :success
+    end
 	end
 
   def show_description
@@ -28,11 +36,15 @@ class TestDecorator < Draper::Decorator
   end
 
   def manage_questions_link
-    h.tag_label h.link_to("Manage questions",h.test_questions_path(model)) , :primary
+    if h.can? :update , model
+      h.tag_label h.link_to("Manage questions",h.test_questions_path(model)) , :primary
+    end
   end
 
   def add_question_link remote=false
-    h.tag_label h.link_to("Add question",h.new_test_question_path(model)) , :primary
+    if h.can? :update , model
+      h.tag_label h.link_to("Add question",h.new_test_question_path(model)) , :primary
+    end
   end
 
   def render_questions

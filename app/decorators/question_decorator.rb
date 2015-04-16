@@ -15,16 +15,20 @@ class QuestionDecorator < Draper::Decorator
 	  	else
 	  		"Add new question"
 	  	end
-  	end
+  end
 
   def destroy_link remote=false
+    if h.can? :update , model.test
     	h.tag_label h.link_to("Delete" , h.test_question_path(object.test,object) , 
                         method: :delete , remote: remote,
                         data: {confirm: "Are you sure?"}) , :danger
+    end
 	end
 
 	def edit_link
-		h.tag_label h.link_to("Edit" , h.edit_test_question_path(object.test,object)) , :success
+    if h.can? :update , model.test
+		  h.tag_label h.link_to("Edit" , h.edit_test_question_path(object.test,object)) , :success
+    end
 	end
 
   def simple_show_link

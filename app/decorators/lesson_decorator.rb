@@ -20,13 +20,17 @@ class LessonDecorator < Draper::Decorator
   end
 
   def edit_link
-    h.tag_label h.link_to("Edit" , h.edit_course_lesson_path(object.course,object)) , :success
+    if h.can? :update , model
+      h.tag_label h.link_to("Edit" , h.edit_course_lesson_path(object.course,object)) , :success
+    end
   end
 
   def destroy_link remote = false
-    h.tag_label h.link_to("Delete" , h.course_lesson_path(object.course,object) , 
+    if h.can? :destroy , model
+      h.tag_label h.link_to("Delete" , h.course_lesson_path(object.course,object) , 
                           method: :delete , remote: remote,
                           data: {confirm: "Are you sure?"}) , :danger
+    end
   end
 
   def idText
@@ -36,19 +40,21 @@ class LessonDecorator < Draper::Decorator
   def showTestLink
     if model.test
       model.test.decorate.show_link
-    else
+    elsif h.can?(:update,model)
       h.tag_label h.link_to("Add test", h.new_lesson_test_path(model)),:primary
+    else
+      "No test"
     end
   end
 
   def destroyTestLink remote=false
-    if model.test
+    if model.test && h.can?(:update , model)
        model.test.decorate.destroy_link(remote)
     end
   end
 
   def editTestLink 
-    if model.test
+    if model.test && h.can?(:update,model)
       model.test.decorate.edit_link
     end
   end
@@ -71,7 +77,9 @@ class LessonDecorator < Draper::Decorator
   end
 
   def add_document_link
-     h.tag_label h.link_to("Add document" , h.new_lesson_document_path(object)) , :success
+    if h.can? :update, model
+      h.tag_label h.link_to("Add document" , h.new_lesson_document_path(object)) , :success
+    end
   end
 
 
