@@ -18,7 +18,6 @@ class TestsController < ApplicationController
 
 	def solve
 		@test = Test.find(params[:test])
-		authorize! :solve , @test
 		@result=@test.compute_score(params[:solve])
 	end
 
