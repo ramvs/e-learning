@@ -13,4 +13,7 @@
 			%div.panel-heading Courses toolbar
 			%div.panel-body
 				%ul
-					%li= link_to "New course" , new_course_path
+					-if can? :create , Course
+						%li= link_to "New course" , new_course_path
+					-else
+						No options available
