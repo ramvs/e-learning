@@ -1,5 +1,7 @@
 .panel.panel-default
 	.panel-heading
 		Lesson description
+		%span.pull-right= tag_label lesson.courseLink , :primary
 	.panel-body
-		%div=lesson.description
+		%div
+			%strong=lesson.show_description

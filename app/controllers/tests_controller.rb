@@ -7,9 +7,15 @@ class TestsController < ApplicationController
 	end
 
 	def show
+
 	end
 
 	def edit
+	end
+
+	def solve
+		@test = Test.find(params[:test])
+		@result=@test.compute_score(params[:solve])
 	end
 
 	def new

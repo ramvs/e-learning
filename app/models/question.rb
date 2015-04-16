@@ -1,6 +1,6 @@
 class Question < ActiveRecord::Base
 	belongs_to :test
-	has_many :anserws
+	has_many :anserws , dependent: :destroy
 	validates :test , presence: true
 	validates :content, presence: true
 

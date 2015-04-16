@@ -1,0 +1,13 @@
+
+
+.row
+	.col-md-8
+		%h2  
+			Question details
+			%span.pull-right
+				= question.edit_link
+				= question.destroy_link
+		.well
+			%strong= question.content + ":"
+			%ul.list-group
+				= question.renderAnserws

@@ -1,8 +1,11 @@
 class QuestionsController < ApplicationController
 	before_filter :find_test , only: [:index,:new,:create]
-	before_filter :find_question , only: [:edit,:update,:destroy]
+	before_filter :find_question , only: [:edit,:update,:destroy,:show]
 	decorates_assigned :question
 	decorates_assigned :test
+
+	def show
+	end
 
 	def index
 		@questions = @test.questions.decorate

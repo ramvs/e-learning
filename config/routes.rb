@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   resources :tests do
     resources :questions
   end
+
+  post 'tests/solve' => 'tests#solve', as: :test_solve
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

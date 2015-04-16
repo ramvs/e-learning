@@ -53,5 +53,13 @@ class LessonDecorator < Draper::Decorator
     end
   end
 
+  def show_description
+    if model.description && model.description!=""
+      model.description
+    else
+      "No descriptin for this lessson"
+    end
+  end
+
 
 end
