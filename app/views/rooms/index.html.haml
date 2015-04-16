@@ -1,29 +1,28 @@
-.well
-  -if current_user && current_user.admin?
-    #newRoom
-      %fieldset
-        %legend Stwórz nowy pokój
-        = form_for(@new_room) do |f|
-          Nazwa pokoju #{f.text_field :name}
-          %br/
-          %br/
-          Opis pokoju #{f.text_area:description}
-          %br/
-          %br/
-          Czy ma być publiczny?#{f.check_box :public}
-          %br/
-          %br/
-          = f.submit
-.well
-  %h1 Lista publicznych pokoi
-  %table{:class => "table table-hover"}
-    %tr
-      %th Name
-      %th Description
-      %th Link
-    - @rooms.all.each do |room|
-      %tr
-        %td= room.name
-        %td= room.description
-        %td= link_to("click",party_path(room.id))
-
+.row
+  .col-md-8
+    .well
+      %h1 Lista publicznych pokoi
+      -if @rooms.any?
+        %table{:class => "table table-hover"}
+          %tr
+            %th Name
+            %th Description
+            %th Link
+          - @rooms.all.each do |room|
+            %tr
+              %td= room.name
+              %td= room.description
+              %td= link_to("click",party_path(room.id))
+      -else
+        %strong Brak dostępnych pokoi
+  .col-md-4
+    .well
+      -if current_user && current_user.admin?
+        #newRoom
+          %fieldset
+            %legend Stwórz nowy pokój
+            = bootstrap_form_for(@new_room) do |f|
+              = f.text_field :name , label: "Nazwa pokoju"
+              = f.text_area :description , label: "Opis pokoju"
+              = f.check_box :public, label: "Pokój publiczny"
+              = f.submit

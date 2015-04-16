@@ -17,9 +17,9 @@ class RoomsController < ApplicationController
     opentok_token = OpenTokService.new(@new_room).generate_token
     respond_to do |format|
       if @new_room.save
-        format.html {redirect_to("/party/"+@new_room.id.to_s) }
+        format.html {redirect_to("/party/#{@new_room.id}") }
       else
-        format.html { render 'new'}
+        format.html { redirect_to rooms_path , flash: {error: "Cannot create a room"}}
       end
     end
   end
