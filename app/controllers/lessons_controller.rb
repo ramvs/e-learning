@@ -4,6 +4,7 @@ class LessonsController < ApplicationController
 	before_filter :find_lesson , only: [:show,:edit,:update,:destroy]
 
 	def show
+		@documents = @lesson.documents.where("attached_doc is NOT NULL")
 	end
 	
 	def new

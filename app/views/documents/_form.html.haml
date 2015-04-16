@@ -1,0 +1,4 @@
+= bootstrap_form_for [@lesson,@document] do |f|
+	= f.text_field :title , required: true
+	= f.file_field :attached_doc  , label: "File"
+	= f.submit "Save"

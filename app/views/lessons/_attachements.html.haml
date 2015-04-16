@@ -1,4 +1,7 @@
 .panel.panel-default
 	.panel-heading
 		Attachments
+		%span.pull-right
+			= lesson.add_document_link
 	.panel-body
+		= lesson.render_documents
