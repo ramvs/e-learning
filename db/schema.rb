@@ -14,10 +14,8 @@
 
 ActiveRecord::Schema.define(version: 20150415211220) do
 
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
 
   create_table "anserws", force: :cascade do |t|
     t.string   "content",     null: false
@@ -34,7 +32,7 @@ ActiveRecord::Schema.define(version: 20150415211220) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-
+  end
 
   create_table "lessons", force: :cascade do |t|
     t.string   "title"
@@ -43,6 +41,7 @@ ActiveRecord::Schema.define(version: 20150415211220) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.text     "content"
+  end
 
   create_table "rooms", force: :cascade do |t|
     t.string   "name"
