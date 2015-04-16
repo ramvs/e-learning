@@ -22,7 +22,7 @@ class QuestionsController < ApplicationController
 
 	def update
 		if @question.update_attributes(question_params)
-			redirect_to lesson_test_path(@test.lesson,@test)
+			redirect_to test_questions_path(@test)
 		else
 			render 'new'
 		end
