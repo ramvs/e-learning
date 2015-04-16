@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20150415211220) do
+ActiveRecord::Schema.define(version: 20150416090551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +33,19 @@ ActiveRecord::Schema.define(version: 20150415211220) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "documents", force: :cascade do |t|
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "attached_doc_file_name"
+    t.string   "attached_doc_content_type"
+    t.integer  "attached_doc_file_size"
+    t.datetime "attached_doc_updated_at"
+    t.integer  "lesson_id"
+    t.string   "title"
+  end
+
+  add_index "documents", ["lesson_id"], name: "index_documents_on_lesson_id", using: :btree
+
   create_table "lessons", force: :cascade do |t|
     t.string   "title"
     t.string   "description"
@@ -41,23 +53,6 @@ ActiveRecord::Schema.define(version: 20150415211220) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.text     "content"
-  end
-
-  create_table "rooms", force: :cascade do |t|
-    t.string   "name"
-    t.string   "sessionId"
-    t.boolean  "public"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "user_id"
-    t.string   "description"
-  end
-
-  create_table "rooms_users", id: false, force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "room_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -108,7 +103,6 @@ ActiveRecord::Schema.define(version: 20150415211220) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "room_id"
     t.boolean  "admin",                  default: false
   end
 
@@ -116,6 +110,7 @@ ActiveRecord::Schema.define(version: 20150415211220) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "anserws", "questions"
+  add_foreign_key "documents", "lessons"
   add_foreign_key "questions", "tests"
   add_foreign_key "tests", "lessons"
 end

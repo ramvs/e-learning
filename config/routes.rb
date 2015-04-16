@@ -18,8 +18,13 @@ Rails.application.routes.draw do
 
   resources :rooms
   resources :users, only: [:show]
+ 
   resources :lessons do
     resources :tests
+  end
+
+  resources :lessons do
+    resources :documents
   end
 
   resources :tests do

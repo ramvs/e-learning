@@ -61,5 +61,18 @@ class LessonDecorator < Draper::Decorator
     end
   end
 
+  def render_documents
+    if model.documents.any?
+      h.content_tag(:ul, h.render(DocumentDecorator.decorate_collection(model.documents)),
+        class: "list-group")
+    else
+      "No attached documents"
+    end
+  end
+
+  def add_document_link
+     h.tag_label h.link_to("Add document" , h.new_lesson_document_path(object)) , :success
+  end
+
 
 end
