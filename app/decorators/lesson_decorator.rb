@@ -1,6 +1,7 @@
 class LessonDecorator < Draper::Decorator
   delegate_all
   decorates :lesson
+  decorates_association  :test
 
   def courseLink
   	h.link_to object.courseTitle , object.course 
@@ -12,6 +13,10 @@ class LessonDecorator < Draper::Decorator
   	else
   		h.content_tag(:span,"Adding new lesson" + (suffix ? " to ": ""))
   	end
+  end
+
+  def show_link
+    h.link_to(object.title , [object.course,object])
   end
 
   def edit_link
@@ -27,5 +32,34 @@ class LessonDecorator < Draper::Decorator
   def idText
     "lesson#{model.id}"
   end
+
+  def showTestLink
+    if model.test
+      model.test.decorate.show_link
+    else
+      h.tag_label h.link_to("Add test", h.new_lesson_test_path(model)),:primary
+    end
+  end
+
+  def destroyTestLink remote=false
+    if model.test
+       model.test.decorate.destroy_link(remote)
+    end
+  end
+
+  def editTestLink 
+    if model.test
+      model.test.decorate.edit_link
+    end
+  end
+
+  def show_description
+    if model.description && model.description!=""
+      model.description
+    else
+      "No descriptin for this lessson"
+    end
+  end
+
 
 end
