@@ -50,6 +50,7 @@ GEM
     builder (3.2.2)
     byebug (4.0.5)
       columnize (= 0.9.0)
+    cancan (1.6.10)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.7)
@@ -280,6 +281,7 @@ DEPENDENCIES
   autosize-rails
   bootstrap_form
   byebug
+  cancan
   coffee-rails (~> 4.1.0)
   devise
   draper (~> 1.3)

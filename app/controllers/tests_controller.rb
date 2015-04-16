@@ -2,23 +2,29 @@ class TestsController < ApplicationController
 	before_filter :find_test , only:[:show, :edit,:update,:destroy]
 	before_filter :find_lesson , only:[:new,:create]
 	decorates_assigned :test
+	
 	def index
 		@tests = Test.all
+		authorize! :read, @tests
 	end
 
 	def show
-
+		authorize! :read, @test
 	end
 
 	def edit
+		authorize! :update , @test
 	end
 
 	def solve
 		@test = Test.find(params[:test])
+		authorize! :solve , @test
 		@result=@test.compute_score(params[:solve])
 	end
 
 	def new
+		authorize! :create , Test
+		authorize! :update, @lesson
 		if @lesson.test
 			redirect_to [@lesson,@lesson.test]
 		else
@@ -27,6 +33,8 @@ class TestsController < ApplicationController
 	end
 
 	def create
+		authorize! :create , Test
+		authorize! :update, @lesson
 		@test = @lesson.create_test(test_params)
 		if @test.save
 			redirect_to [@lesson,@test]
@@ -36,6 +44,8 @@ class TestsController < ApplicationController
 	end
 
 	def update
+		authorize! :update , @test
+		authorize! :update, @lesson
 		if @test.update_attributes(test_params)
 			redirect_to [@lesson,@test]
 		else
@@ -44,6 +54,8 @@ class TestsController < ApplicationController
 	end
 
 	def destroy
+		authorize! :destroy, @test
+		authorize! :update, @lesson
 		@test.destroy
 		redirect_to [@lesson.course,@lesson]
 	end

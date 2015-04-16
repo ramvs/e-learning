@@ -12,16 +12,22 @@ class CourseDecorator < Draper::Decorator
   end
 
   def edit_link
-  	h.tag_label h.link_to("Edit" , h.edit_course_path(object)) , :success
+  	if h.can? :update , model
+      h.tag_label h.link_to("Edit" , h.edit_course_path(object)) , :success
+    end
   end
 
   def destroy_link remote = false
-  	h.tag_label h.link_to("Delete" , h.course_path(object) , method: :delete , remote: remote,
-  											data: {confirm: "Are you sure?"}) , :danger
+  	if h.can? :destroy , model
+      h.tag_label h.link_to("Delete" , h.course_path(object) , method: :delete , remote: remote,
+    											data: {confirm: "Are you sure?"}) , :danger
+    end
   end
 
   def newLessonLink
-    h.tag_label h.link_to("Add lesson", h.new_course_lesson_path(object)), :primary
+    if h.can?(:create,Lesson) && h.can?(:update,model)
+      h.tag_label h.link_to("Add lesson", h.new_course_lesson_path(object)), :primary
+    end
   end
 
   def idText

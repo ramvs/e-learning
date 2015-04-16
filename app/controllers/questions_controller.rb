@@ -5,22 +5,28 @@ class QuestionsController < ApplicationController
 	decorates_assigned :test
 
 	def show
+		authorize! :read, @question
 	end
 
 	def index
+		authorize! :read, @test
 		@questions = @test.questions.decorate
+		authorize! :read, @questions
 	end
 
 	def new
+		authorize! :update , @test
 		@question = @test.questions.build
 		@create = true
 	end
 
 	def edit
+		authorize! :update , @test
 		render 'new'
 	end
 
 	def update
+		authorize! :update , @test
 		if @question.update_attributes(question_params)
 			redirect_to test_questions_path(@test)
 		else
@@ -29,8 +35,8 @@ class QuestionsController < ApplicationController
 	end
 
 	def create
-		@question = Question.create(question_params)
-		@question.test = @test
+		authorize! :update , @test
+		@question = @test.questions.create(question_params)
 		if @question.save
 			redirect_to edit_test_question_path(@test,@question)
 		else
@@ -39,6 +45,7 @@ class QuestionsController < ApplicationController
 	end
 
 	def destroy
+		authorize! :update , @test
 		@question.destroy
 		redirect_to test_questions_path(@test)
 	end
