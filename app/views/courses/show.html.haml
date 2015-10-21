@@ -11,30 +11,10 @@
             = course.edit_link
             = course.destroy_link
       .well
-        = bootstrap_form_for [@course,@course.comments.build] do |f|
-          = f.text_field :description, label: "Add comment"
-          = f.submit "Save" , class: "btn btn-primary"
-      .panel.panel-default
-        .panel-heading
-          Comments
-        .panel-body
-          - @course_comments.each do |comment|
-            .container
-              .row
-                .col-sm-12
-              .row
-                .col-sm-1
-                  .thumbnail
-                    %img.img-responsive.user-photo{:src => "https://ssl.gstatic.com/accounts/ui/avatar_2x.png"}/
-                .col-sm-5
-                  .panel.panel-default
-                    .panel-heading
-                      %strong
-                        =comment.description
-                      %span.text-muted commented 5 days ago
-                    .panel-body
-                      = comment.description
-        .panel-footer
+        = render "comment_form"
+      .well
+        =render "all_comments"
+       
   .col-md-4
     .panel.panel-default
       .panel-heading
