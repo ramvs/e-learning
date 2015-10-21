@@ -16,7 +16,7 @@ class Lesson < ActiveRecord::Base
 			# Jezeli dane zaczynaja sie od http lub https
 			if self.extern_video_url =~ URI::regexp(%w(http https))
 				#Jezeli link nalezy do jednego z providerow (tzw jego host np. www.vimeo.com)
-				if ["www.youtube.com","www.vimeo.com","www.dailymotion.com"].include? URI(self.extern_video_url).host
+				if ["www.youtube.com","vimeo.com","www.dailymotion.com"].include? URI(self.extern_video_url).host
 					#Za pomoca VideoInfo sprawdz czy film jest dostepny
 	    			video = VideoInfo.new(self.extern_video_url)
 					unless video.available?
@@ -26,7 +26,7 @@ class Lesson < ActiveRecord::Base
 				self.errors.add(:extern_video_url, "Entered addres is not belong to provider (e.g Youtube)")
 				end
 			else
-			self.errors.add(:extern_video_url, "Address you entered is not a valid HTTP link")
+			self.errors.add(:extern_video_url, "Entered addres is not a valid HTTP link")
 			end
 		end
 	end
