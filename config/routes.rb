@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :comments
+
   root 'static_pages#home'
 
   get 'room/index'
@@ -29,6 +31,10 @@ Rails.application.routes.draw do
 
   resources :tests do
     resources :questions
+  end
+
+  resources :courses do
+    resources :comments
   end
 
   post 'tests/solve' => 'tests#solve', as: :test_solve

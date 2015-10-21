@@ -8,6 +8,10 @@ class CoursesController < ApplicationController
 	end
 
 	def show
+		# binding.pry
+		@course_comments = find_course.comments
+		# binding.pry
+		@comment = @course.comments.build
 		authorize! :read , @course
 	end
 
@@ -58,4 +62,8 @@ class CoursesController < ApplicationController
 		def find_course
 			@course = Course.find(params[:id])
 		end
+
+		# def comment_params
+  #     params.require(:comment).permit(:description, :course_id, :lesson_id, :user_id)
+  #   	end
 end

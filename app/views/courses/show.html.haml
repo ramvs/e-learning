@@ -1,17 +1,47 @@
-%div.row
-	%div.col-md-8
-		%div.panel.panel-default
-			%div.panel-heading= @course.title
-			%div.panel-body= @course.description
-			%div.panel-footer
-				%span
-					=course.edit_link
-					=course.destroy_link
-	%div.col-md-4
-		%div.panel.panel-default
-			%div.panel-heading 
-				Lessons
-				%span.pull-right= course.lessonsCount
-			%div= course.renderLessons
-			%div.panel-footer
-				=course.newLessonLink
+.row
+  .col-md-8
+    .panel-group
+      .panel.panel-default
+        .panel-heading
+          = @course.title
+        .panel-body
+          = @course.description
+        .panel-footer
+          %span
+            = course.edit_link
+            = course.destroy_link
+      .well
+        = bootstrap_form_for [@course,@course.comments.build] do |f|
+          = f.text_field :description, label: "Add comment"
+          = f.submit "Save" , class: "btn btn-primary"
+      .panel.panel-default
+        .panel-heading
+          Comments
+        .panel-body
+          - @course_comments.each do |comment|
+            .container
+              .row
+                .col-sm-12
+              .row
+                .col-sm-1
+                  .thumbnail
+                    %img.img-responsive.user-photo{:src => "https://ssl.gstatic.com/accounts/ui/avatar_2x.png"}/
+                .col-sm-5
+                  .panel.panel-default
+                    .panel-heading
+                      %strong
+                        =comment.description
+                      %span.text-muted commented 5 days ago
+                    .panel-body
+                      = comment.description
+        .panel-footer
+  .col-md-4
+    .panel.panel-default
+      .panel-heading
+        Lessons
+        %span.pull-right
+          = course.lessonsCount
+      %div
+        = course.renderLessons
+      .panel-footer
+        = course.newLessonLink
