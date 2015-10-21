@@ -36,7 +36,7 @@ gem 'rails_bootstrap_navbar'
 gem 'draper', '~> 1.3'
 gem 'gon'
 gem 'autosize-rails'
-
+gem 'video_info'
 #-------OpenTOK----------
 gem "opentok", "~> 2.2"
 gem 'websocket-rails'

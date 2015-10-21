@@ -22,7 +22,7 @@ module ELearning
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
-
+    config.autoload_paths += %W["#{config.root}/app/validators/"]
     BootstrapNavbar.configure do |config|
         config.bootstrap_version = '3.2.0'
         config.current_url_method = 'request.original_url'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150416090551) do
+ActiveRecord::Schema.define(version: 20151020140446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,10 +49,11 @@ ActiveRecord::Schema.define(version: 20150416090551) do
   create_table "lessons", force: :cascade do |t|
     t.string   "title"
     t.string   "description"
-    t.integer  "course_id",   null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "course_id",        null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.text     "content"
+    t.string   "extern_video_url"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -70,7 +71,6 @@ ActiveRecord::Schema.define(version: 20150416090551) do
     t.boolean  "public"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "user_id"
     t.string   "description"
   end
 
@@ -104,7 +104,6 @@ ActiveRecord::Schema.define(version: 20150416090551) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "room_id"
     t.boolean  "admin",                  default: false
   end
 
