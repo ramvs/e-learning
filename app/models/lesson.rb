@@ -18,11 +18,15 @@ class Lesson < ActiveRecord::Base
 				#Jezeli link nalezy do jednego z providerow (tzw jego host np. www.vimeo.com)
 				if ["www.youtube.com","vimeo.com","www.dailymotion.com"].include? URI(self.extern_video_url).host
 					#Za pomoca VideoInfo sprawdz czy film jest dostepny
-	    			video = VideoInfo.new(self.extern_video_url)
+					begin
+					video = VideoInfo.new(self.extern_video_url)
 					unless video.available?
 						self.errors.add(:extern_video_url, "Video is not avialable.")
+					end	
+					rescue Exception => e
+					self.errors.add(:extern_video_url, "Check your video url once again.")	
 					end
-				else 
+	    		else 
 				self.errors.add(:extern_video_url, "Entered addres is not belong to provider (e.g Youtube)")
 				end
 			else
