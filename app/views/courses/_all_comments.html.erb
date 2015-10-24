@@ -1,0 +1,36 @@
+<div class="container">
+   <div class="row">
+      <div class="col-sm-12">
+         <h3>User Comments:</h3>
+      </div>
+      <!-- /col-sm-12 -->
+   </div>
+   <!-- /row -->
+   <% @course_comments.all.each do |comment| %>
+   <div class="row">
+      <div class="col-sm-1">
+         <div class="thumbnail">
+            <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+         </div>
+         <!-- /thumbnail -->
+      </div>
+      <!-- /col-sm-1 -->
+      <div class="col-sm-5">
+         <div class="panel panel-default">
+            <div class="panel-heading">
+               <strong><%= User.find(comment.user_id).email %></strong> <span class="text-muted">
+               <%= time_ago_in_words(comment.created_at) %></span>
+            </div>
+            <div class="panel-body">
+               <%= comment.description %>
+            </div>
+            <!-- /panel-body -->
+         </div>
+         <!-- /panel panel-default -->
+      </div>
+      <!-- /col-sm-5 -->
+   </div>
+   <!-- /row -->
+   <% end %>
+</div>
+<!-- /container -->

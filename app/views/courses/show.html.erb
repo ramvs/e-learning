@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="panel-group">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <%= @course.title %>
+        </div>
+        <div class="panel-body">
+          <%= @course.description %>
+        </div>
+        <div class="panel-footer">
+          <span>
+            <%= course.edit_link %>
+            <%= course.destroy_link %>
+          </span>
+        </div>
+      </div>
+     <br>
+    <% if user_signed_in? %>
+      <div class="well comment_form">
+    <%= render "comment_form" %>
+     </div>
+    <%end%>
+
+      <div class="well display_comments">
+        <%= render "all_comments" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Lessons
+        <span class="pull-right">
+          <%= course.lessonsCount %>
+        </span>
+      </div>
+      <div>
+        <%= course.renderLessons %>
+      </div>
+      <div class="panel-footer">
+        <%= course.newLessonLink %>
+      </div>
+    </div>
+  </div>
+</div>

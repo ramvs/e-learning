@@ -8,6 +8,8 @@ class CoursesController < ApplicationController
 	end
 
 	def show
+		@course_comments = find_course.comments.order(created_at: :desc)
+		@comment = @course.comments.build
 		authorize! :read , @course
 	end
 
@@ -58,4 +60,10 @@ class CoursesController < ApplicationController
 		def find_course
 			@course = Course.find(params[:id])
 		end
+
+
+
+		# def comment_params
+  #     params.require(:comment).permit(:description, :course_id, :lesson_id, :user_id)
+  #   	end
 end
