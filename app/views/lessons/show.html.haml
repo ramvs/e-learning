@@ -7,7 +7,7 @@
           = lesson.edit_link
           = lesson.destroy_link
       .panel-body.lesson-content
-        = lesson.content
+        = simple_format(lesson.content)
       .panel-heading
         Timestamps
       - if lesson.extern_video_url.present?

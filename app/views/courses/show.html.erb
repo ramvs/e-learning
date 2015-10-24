@@ -6,7 +6,7 @@
           <%= @course.title %>
         </div>
         <div class="panel-body">
-          <%= @course.description %>
+          <%= simple_format(@course.description) %>
         </div>
         <div class="panel-footer">
           <span>
