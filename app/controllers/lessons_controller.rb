@@ -18,8 +18,6 @@ class LessonsController < ApplicationController
 		authorize! :create , Lesson
 		authorize! :update , @course
 		@lesson = @course.lessons.create(lesson_params)
-		# binding.pry
-		# video = VideoInfo.new(@lesson.extern_video_url)
 		if @lesson.save
 			redirect_to [@lesson.course,@lesson], flash: {notice:  "Lesson created."}
 		else
