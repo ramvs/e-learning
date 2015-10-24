@@ -40,7 +40,7 @@ gem 'video_info'
 #-------OpenTOK----------
 gem "opentok", "~> 2.2"
 gem 'websocket-rails'
-
+gem 'rails_12factor', group: :production
 gem "nested_form"
 
 gem "paperclip", "~> 4.2"
