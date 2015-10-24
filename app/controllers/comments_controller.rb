@@ -30,10 +30,10 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         format.html { redirect_to @course, notice: 'Comment was successfully created.' }
-        format.js { redirect_to @course }
+        format.json { redirect_to @course }
       else
         format.html { render :new }
-        format.js 
+        format.json {render json: @course.errors, status: :unprocessable_entity}
       end
     end
   end
