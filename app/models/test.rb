@@ -17,16 +17,35 @@ class Test < ActiveRecord::Base
     points
   end
 
-  def isQuestionCorrectlyAnswered(correctAnswers, userAnswers)
-    return false if correctAnswers.length != userAnswers.length
-    correctAnswers.each do |correctAnswer|
-      return false if userAnswers.find_index(correctAnswer.to_s)==nil
+  def saveUserAnswers(userResult, currentUser)
+    questions.all.each do |question|
+      userQuestion = userResult[question.id.to_s]
+      question.anserws.each do |answer|
+        saveUserAnswer(answer, currentUser, userQuestion)
+      end
     end
-    true
   end
 
   def findCorrectAnswersIdsForQuestion(questionInDb)
     return questionInDb.anserws.where(correct: true).pluck(:id)
   end
+
+  private
+    def saveUserAnswer(answer, currentUser, userQuestion)
+      userAnswer = userQuestion != nil ? userQuestion.find_index(answer.id.to_s) : nil
+      UserAnserw.create({user: currentUser, anserw: answer, correct: resolveCorrect(answer, userAnswer)})
+    end
+
+    def resolveCorrect(answer, userAnswer)
+      (userAnswer == nil) ? !answer.correct : answer.correct
+    end
+
+    def isQuestionCorrectlyAnswered(correctAnswers, userAnswers)
+      return false if correctAnswers.length != userAnswers.length
+      correctAnswers.each do |correctAnswer|
+        return false if userAnswers.find_index(correctAnswer.to_s)==nil
+      end
+      true
+    end
 
 end
