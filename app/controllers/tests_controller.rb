@@ -2,7 +2,7 @@ class TestsController < ApplicationController
 	before_filter :find_test , only:[:show, :edit,:update,:destroy]
 	before_filter :find_lesson , only:[:new,:create]
 	decorates_assigned :test
-	
+
 	def index
 		@tests = Test.all
 		authorize! :read, @tests
@@ -18,7 +18,7 @@ class TestsController < ApplicationController
 
 	def solve
 		@test = Test.find(params[:test])
-		@result=@test.compute_score(params[:solve])
+		@result = @test.computeScore(params[:solve])
 	end
 
 	def new
