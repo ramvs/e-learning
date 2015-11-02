@@ -27,7 +27,7 @@ class TestResult < ActiveRecord::Base
     error = false
     question.user_answers = []
     question.anserws.each do |answer|
-      isCorrect = checkIfCorrect(answer, userResult[question.id.to_s])
+      isCorrect = userResult!=nil && checkIfCorrect(answer, userResult[question.id.to_s])
       question.user_answers << testResult.user_anserws.build({anserw: answer, correct: isCorrect})
       error = true unless isCorrect
     end
