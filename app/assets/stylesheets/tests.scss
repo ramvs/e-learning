@@ -1,3 +1,7 @@
-// Place all the styles related to the tests controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.user-correct-answer {
+  color: green;
+}
+
+.user-incorrect-answer {
+  color: red;
+}

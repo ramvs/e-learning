@@ -19,7 +19,7 @@ class TestsController < ApplicationController
 	def solve
 		@test = Test.find(params[:test])
 		@result = @test.computeScore(params[:solve])
-    @test.saveUserAnswers(params[:solve], current_user) if current_user != nil
+    	@test.saveUserAnswers(params[:solve], current_user) if current_user != nil
 	end
 
 	def new

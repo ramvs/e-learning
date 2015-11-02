@@ -1,3 +1,17 @@
 %h1
 	Points:
 	="#{@result} / #{@test.questions.count}"
+
+-if user_signed_in?
+	%h3 Your result
+	.list-group
+	- test.questions.each do |question|
+		.list-group-item
+			%strong=question.content
+			%ul
+				-question.getUsersAnswers(current_user).each do |answer|
+					= check_box_tag "c", answer.id , answer.correct && answer.anserw.correct || !answer.correct && !answer.anserw.correct
+					%span{class: (answer.correct ? 'user-correct-answer' : 'user-incorrect-answer')}
+						=answer.anserw.content
+					%br
+
