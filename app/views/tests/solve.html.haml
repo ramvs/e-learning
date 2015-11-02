@@ -1,17 +1,22 @@
-%h1
-	Points:
-	="#{@result} / #{@test.questions.count}"
+.row
+	.col-md-8
+		%h2
+			Points:
+			="#{@result.points} / #{@result.max}"
 
--if user_signed_in?
-	%h3 Your result
-	.list-group
-	- test.questions.each do |question|
-		.list-group-item
-			%strong=question.content
-			%ul
-				-question.getUsersAnswers(current_user).each do |answer|
-					= check_box_tag "c", answer.id , answer.correct && answer.anserw.correct || !answer.correct && !answer.anserw.correct
-					%span{class: (answer.correct ? 'user-correct-answer' : 'user-incorrect-answer')}
-						=answer.anserw.content
-					%br
+		-if user_signed_in?
+			- @result.errors.full_messages.each do |msg|
+				.alert.alert-danger.alert-dismissable= msg
+			%h4 Correct answers
+			.list-group
+			- @result.questions_results_set.each do |question|
+				.list-group-item
+					%strong=question.content
+					%ul
+						-question.user_answers.each do |answer|
+							= check_box_tag "c", answer.id , isChecked(answer) , disabled: true
+							%span{class: resultShowClass(answer)}= answer.anserw.content
+							%br
+		-else
+			%h3 Log in to see correct answers
 

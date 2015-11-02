@@ -6,8 +6,10 @@ class Question < ActiveRecord::Base
 
   accepts_nested_attributes_for :anserws, allow_destroy: true
 
-  def getUsersAnswers user
-    UserAnserw.where(anserw: anserws).where(user: user)
+  attr_accessor :user_answers
+
+  def getTestResultAnswers(test_result)
+    UserAnserw.where(anserw: anserws).where(test_result: test_result)
   end
 
 end
