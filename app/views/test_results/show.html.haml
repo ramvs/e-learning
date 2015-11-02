@@ -10,7 +10,7 @@
 						%strong= "#{question.content}:"
 						-question.getTestResultAnswers(@result).each do |answer|
 							%br
-							=check_box_tag nil, nil, isChecked(answer)
+							=check_box_tag nil, nil, isChecked(answer), disabled: true
 							%span{class: resultShowClass(answer)}= answer.anserw.content
 
 	.col-md-4
