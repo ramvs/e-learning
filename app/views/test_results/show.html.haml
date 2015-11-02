@@ -1,0 +1,22 @@
+.row
+	.col-md-8
+		.panel.panel-default
+			.panel-heading
+				= "#{@result.user.email} - Lesson: \"#{@lesson.title}\""
+				%span.pull-right.label.label-info= "#{@result.points}/#{@result.max} points"
+			.list-group
+				-@result.test.questions.each do |question|
+					.list-group-item
+						%strong= "#{question.content}:"
+						-question.getTestResultAnswers(@result).each do |answer|
+							%br
+							=check_box_tag nil, nil, isChecked(answer)
+							%span{class: resultShowClass(answer)}= answer.anserw.content
+
+	.col-md-4
+		.panel.panel-default
+			.panel-heading Sidebar
+			.panel-body
+				%div= link_to "Go back to results list", lesson_test_results_path
+				%div= link_to "Go back to test", [@lesson, @result.test]
+				%div= link_to "Go back to lesson", [@lesson.course, @lesson]

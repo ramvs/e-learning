@@ -40,4 +40,4 @@
 			.panel.panel-default
 				.panel-heading Test results
 				.panel-body
-					%span.badge= "Test solved by #{pluralize(test.test_results.count, "user")}"
+					=test.testResultsLink("Test solved by #{pluralize(test.test_results.count, "user")}")

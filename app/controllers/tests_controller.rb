@@ -58,9 +58,7 @@ class TestsController < ApplicationController
 		redirect_to [@lesson.course,@lesson]
 	end
 
-
 	private
-
 		def find_test
 			find_lesson
 			@test = @lesson.test

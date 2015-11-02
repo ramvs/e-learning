@@ -11,12 +11,11 @@
 			.list-group
 			- @result.questions_results_set.each do |question|
 				.list-group-item
-					%strong=question.content
-					%ul
-						-question.user_answers.each do |answer|
-							= check_box_tag "c", answer.id , isChecked(answer) , disabled: true
-							%span{class: resultShowClass(answer)}= answer.anserw.content
-							%br
+					%strong="#{question.content}:"
+					-question.user_answers.each do |answer|
+						%br
+						= check_box_tag "c", answer.id , isChecked(answer) , disabled: true
+						%span{class: resultShowClass(answer)}= answer.anserw.content
 		-else
 			%h3 Log in to see correct answers
 
