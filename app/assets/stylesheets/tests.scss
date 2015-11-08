@@ -1,3 +1,21 @@
-// Place all the styles related to the tests controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.user-correct-answer {
+  color: green;
+}
+
+.user-incorrect-answer {
+  color: red;
+}
+
+.submit-btn {
+  border-radius: 0;
+  margin: 0 3px 3px 3px;
+}
+
+.list-group-item {
+  border-left: none;
+  border-right: none;
+}
+
+.list-group-item-text {
+  padding-left:5px;
+}

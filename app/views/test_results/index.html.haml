@@ -1,0 +1,25 @@
+.row
+	.col-md-8
+		.panel.panel-default
+			.panel-heading= "Solved tests in lesson: \"#{@lesson.title}\""
+
+			-if @results.any?
+				%table.table
+					%thead
+						%tr
+							%th User
+							%th Points
+							%th
+					%tbody
+						-@results.each do |result|
+							%tr
+								%td= result.user.email
+								%td= "#{result.points}/#{result.max}"
+								%td= link_to "Link", [result.test.lesson, result]
+			-else
+				"No tests solved for this lesson"
+	.col-md-4
+		.panel.panel-default
+			.panel-heading Sidebar
+			.panel-body
+				%div= link_to "Go back to lesson", [@lesson.course, @lesson]

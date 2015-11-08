@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  max: 1
+  points: 1
+  user: 
+  test: 
+
+two:
+  max: 1
+  points: 1
+  user: 
+  test: 

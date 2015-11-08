@@ -1,36 +1,43 @@
 .row
 	.col-md-8
-		.panel.panel-default
-			.panel-heading 
-				Test details
-				%span.pull-right
-					= test.edit_link
-					= test.manage_questions_link
-					= test.destroy_link
-			.panel-body
-				%div
-					%strong Title:
-					= test.title
-				%div
-					%strong Descripton:
-					= test.show_description
-				%div
-					%strong Lesson:
-					= test.lesson_link
-
-.row
-	.col-md-8
-		.panel.panel-default
-			.panel-heading Questions
-			=form_tag(test_solve_path , method: :post) do
-				= number_field_tag "test" , test.id , hidden: true
-				.list-group
-					- test.questions.each do |q|
-						.list-group-item
-							%h4.list-group-item-heading= q.content+":"
-							.list-group-item-text
-								- q.anserws.each do |a|
-									= check_box_tag "solve[#{q.id}][]" , a.id
-									= a.content
-									%br
-				=submit_tag "Send"
+		.row
+			.col-md-12
+				.panel.panel-default
+					.panel-heading
+						Test details
+						%span.pull-right
+							= test.edit_link
+							= test.manage_questions_link
+							= test.destroy_link
+					.panel-body
+						%div
+							%strong Title:
+							= test.title
+						%div
+							%strong Descripton:
+							= test.show_description
+						%div
+							%strong Lesson:
+							= test.lesson_link
+		.row
+			.col-md-12
+				.panel.panel-default
+					.panel-heading Questions
+					=form_tag(test_solve_path , method: :post) do
+						= number_field_tag "test" , test.id , hidden: true
+						.list-group
+							- test.questions.each do |q|
+								.list-group-item
+									%h4.list-group-item-heading= q.content+":"
+									.list-group-item-text
+										- q.anserws.each do |a|
+											= check_box_tag "solve[#{q.id}][]" , a.id
+											= a.content
+											%br
+						= submit_tag "Check result", class: 'btn btn-success submit-btn'
+	.col-md-4
+		.row
+			.panel.panel-default
+				.panel-heading Test results
+				.panel-body
+					=test.testResultsLink("Test solved by #{pluralize(test.test_results.count, "user")}")
