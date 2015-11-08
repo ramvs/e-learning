@@ -35,4 +35,8 @@ class Lesson < ActiveRecord::Base
 			end
 		end
 	end
+
+	def findTestResults
+		TestResult.where(test: test)
+	end
 end

@@ -56,4 +56,8 @@ class TestDecorator < Draper::Decorator
     end
   end
 
+  def testResultsLink(linkTitle)
+    h.tag_label h.link_to(linkTitle, h.lesson_test_results_path(object.lesson)), :success
+  end
+
 end
