@@ -19,6 +19,7 @@ class LessonsController < ApplicationController
 		authorize! :update , @course
 		@lesson = @course.lessons.create(lesson_params)
 		if @lesson.save
+			@lesson.create_activity key: 'lesson.create', owner: current_user
 			redirect_to [@lesson.course,@lesson], flash: {notice:  "Lesson created."}
 		else
 			render 'new'
@@ -35,6 +36,7 @@ class LessonsController < ApplicationController
 		authorize! :update , @lesson
 		authorize! :update , @course
 		if @lesson.update_attributes(lesson_params)
+			@lesson.create_activity key: 'lesson.update', owner: current_user
 			redirect_to [@lesson.course,@lesson], flash: {notice:  "Lesson updated."}
 		else
 			render 'new'

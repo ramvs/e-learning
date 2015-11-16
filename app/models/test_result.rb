@@ -1,7 +1,9 @@
 class TestResult < ActiveRecord::Base
+  include PublicActivity::Model
   belongs_to :user
   belongs_to :test
   has_many :user_anserws
+  has_many :activities, as: :trackable, class_name: 'PublicActivity::Activity', dependent: :destroy
 
   validates_presence_of :user
   validates_presence_of :test

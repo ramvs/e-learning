@@ -1,0 +1,6 @@
+%span Lesson
+%strong= link_to activity.trackable.title, [activity.trackable.course, activity.trackable]
+%span has been added to
+%strong= link_to activity.trackable.course.title, activity.trackable.course
+%span course by
+%span= link_to "#{activity.owner.displayName}.", activity.owner.displayName

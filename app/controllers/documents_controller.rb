@@ -13,6 +13,7 @@ class DocumentsController < ApplicationController
 		authorize! :update, @lesson
 		@document = @lesson.documents.create document_params
 		if @document.save
+			@document.create_activity key: 'document.create', owner: current_user
 			redirect_to [@lesson.course,@lesson]
 		else
 			render 'new'
@@ -27,6 +28,7 @@ class DocumentsController < ApplicationController
 	def update
 		authorize! :update, @lesson
 		if @document.update_attributes(document_params)
+			@document.create_activity key: 'document.update', owner: current_user
 			redirect_to [@lesson.course,@lesson]
 		else
 			render 'new'

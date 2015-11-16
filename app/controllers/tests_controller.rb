@@ -18,6 +18,7 @@ class TestsController < ApplicationController
 
 	def solve
 		@result = TestResult.createAndSafe(Test.find(params[:test]), params[:solve], current_user)
+		@result.create_activity(key: 'test_result.create', owner: current_user) if @result.id != nil
 	end
 
 	def new
@@ -35,6 +36,7 @@ class TestsController < ApplicationController
 		authorize! :update, @lesson
 		@test = @lesson.create_test(test_params)
 		if @test.save
+			@test.create_activity key: 'test.create', owner: current_user
 			redirect_to [@lesson,@test]
 		else
 			render "new"
@@ -45,6 +47,7 @@ class TestsController < ApplicationController
 		authorize! :update , @test
 		authorize! :update, @lesson
 		if @test.update_attributes(test_params)
+			@test.create_activity key: 'test.update', owner: current_user
 			redirect_to [@lesson,@test]
 		else
 			render 'new'
