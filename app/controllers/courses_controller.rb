@@ -21,6 +21,7 @@ class CoursesController < ApplicationController
 	def update
 		authorize! :update , @course
 		if @course.update_attributes(course_params)
+			@course.create_activity key: 'course.update', owner: current_user
 			redirect_to @course , flash: {notice:  "Course updated."}
 		else
 			render 'newedit'
@@ -37,6 +38,7 @@ class CoursesController < ApplicationController
 		authorize! :create , Course
 		@course = Course.new(course_params)
 		if @course.save
+			@course.create_activity key: 'course.create', owner: current_user
 			redirect_to @course, flash: {notice:  "Course created."}
 		else
 			render 'newedit'

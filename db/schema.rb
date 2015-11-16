@@ -11,10 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021103857) do
+ActiveRecord::Schema.define(version: 20151116140708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.string   "key"
+    t.text     "parameters"
+    t.integer  "recipient_id"
+    t.string   "recipient_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
+  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
+  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "anserws", force: :cascade do |t|
     t.string   "content",     null: false
@@ -90,6 +107,17 @@ ActiveRecord::Schema.define(version: 20151021103857) do
     t.datetime "updated_at"
   end
 
+  create_table "test_results", force: :cascade do |t|
+    t.integer  "max",        null: false
+    t.integer  "points",     null: false
+    t.integer  "user_id",    null: false
+    t.integer  "test_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "test_results", ["user_id", "test_id"], name: "index_test_results_on_user_id_and_test_id", unique: true, using: :btree
+
   create_table "tests", force: :cascade do |t|
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -99,6 +127,16 @@ ActiveRecord::Schema.define(version: 20151021103857) do
   end
 
   add_index "tests", ["lesson_id"], name: "index_tests_on_lesson_id", using: :btree
+
+  create_table "user_anserws", force: :cascade do |t|
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "anserw_id"
+    t.boolean  "correct",        default: false
+    t.integer  "test_result_id",                 null: false
+  end
+
+  add_index "user_anserws", ["anserw_id", "test_result_id"], name: "index_user_anserws_on_anserw_id_and_test_result_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false

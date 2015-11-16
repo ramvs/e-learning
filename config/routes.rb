@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   resources :lessons do
     resources :documents
+    resources :test_results
   end
 
   resources :tests do

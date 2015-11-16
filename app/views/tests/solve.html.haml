@@ -1,3 +1,21 @@
-%h1
-	Points:
-	="#{@result} / #{@test.questions.count}"
+.row
+	.col-md-8
+		%h2
+			Points:
+			="#{@result.points} / #{@result.max}"
+
+		-if user_signed_in?
+			- @result.errors.full_messages.each do |msg|
+				.alert.alert-danger.alert-dismissable= msg
+			%h4 Correct answers
+			.list-group
+			- @result.questions_results_set.each do |question|
+				.list-group-item
+					%strong="#{question.content}:"
+					-question.user_answers.each do |answer|
+						%br
+						= check_box_tag "c", answer.id , isChecked(answer) , disabled: true
+						%span{class: resultShowClass(answer)}= answer.anserw.content
+		-else
+			%h3 Log in to see correct answers
+

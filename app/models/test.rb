@@ -1,39 +1,12 @@
 class Test < ActiveRecord::Base
-	belongs_to :lesson
-	has_many :questions , dependent: :destroy
-	validates :lesson , presence: true , uniqueness: true
+  include PublicActivity::Model
 
-	accepts_nested_attributes_for :questions
+  belongs_to :lesson
+  has_many :questions, dependent: :destroy
+  has_many :test_results
+  has_many :activities, as: :trackable, class_name: 'PublicActivity::Activity', dependent: :destroy
+  validates :lesson, presence: true, uniqueness: true
 
-	def compute_score arr
-		points = 0
-		return 0 if arr == nil
-		max = questions.count
-		questions.all.each do |q|
-			
-			current = arr[q.id.to_s]
-			
-			if current==nil
-				next
-			end
+  accepts_nested_attributes_for :questions
 
-			correct = q.anserws.where(correct: true).pluck(:id)
-
-			if correct.length != current.length 
-				next
-			end
-
-			error = false
-			correct.each do |a|
-				if current.find_index(a.to_s)==nil
-					error =true
-					break
-				end
-			end
-			if error==false
-				points=points+1
-			end
-		end
-		points
-	end
 end

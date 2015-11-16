@@ -11,4 +11,5 @@
 /log/*
 !/log/.keep
 /tmp
-/public/assets/publications
+/public/assets
+*.idea

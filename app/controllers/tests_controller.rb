@@ -2,7 +2,7 @@ class TestsController < ApplicationController
 	before_filter :find_test , only:[:show, :edit,:update,:destroy]
 	before_filter :find_lesson , only:[:new,:create]
 	decorates_assigned :test
-	
+
 	def index
 		@tests = Test.all
 		authorize! :read, @tests
@@ -17,8 +17,8 @@ class TestsController < ApplicationController
 	end
 
 	def solve
-		@test = Test.find(params[:test])
-		@result=@test.compute_score(params[:solve])
+		@result = TestResult.createAndSafe(Test.find(params[:test]), params[:solve], current_user)
+		@result.create_activity(key: 'test_result.create', owner: current_user) if @result.id != nil
 	end
 
 	def new
@@ -36,6 +36,7 @@ class TestsController < ApplicationController
 		authorize! :update, @lesson
 		@test = @lesson.create_test(test_params)
 		if @test.save
+			@test.create_activity key: 'test.create', owner: current_user
 			redirect_to [@lesson,@test]
 		else
 			render "new"
@@ -46,6 +47,7 @@ class TestsController < ApplicationController
 		authorize! :update , @test
 		authorize! :update, @lesson
 		if @test.update_attributes(test_params)
+			@test.create_activity key: 'test.update', owner: current_user
 			redirect_to [@lesson,@test]
 		else
 			render 'new'
@@ -59,9 +61,7 @@ class TestsController < ApplicationController
 		redirect_to [@lesson.course,@lesson]
 	end
 
-
 	private
-
 		def find_test
 			find_lesson
 			@test = @lesson.test

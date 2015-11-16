@@ -1,0 +1,6 @@
+.row
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        .span.label.label-primary= "#{time_ago_in_words(activity.created_at)} ago"
+      .panel-body= yield
