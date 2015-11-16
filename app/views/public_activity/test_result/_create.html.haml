@@ -1,0 +1,12 @@
+%span Test
+%strong= link_to activity.trackable.test.title, [activity.trackable.test.lesson, activity.trackable.test]
+%span in
+%strong= link_to activity.trackable.test.lesson.title, [activity.trackable.test.lesson.course, activity.trackable.test.lesson]
+%span lesson in
+%strong= link_to activity.trackable.test.lesson.course.title, activity.trackable.test.lesson.course
+%span course has been solved by
+-if activity.owner!=nil
+  =link_to activity.owner.displayName, activity.owner
+-else
+  anonoymous user
+%span= "with score #{activity.trackable.points}/#{activity.trackable.max}."

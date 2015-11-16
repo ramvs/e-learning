@@ -1,0 +1,8 @@
+%span New document
+%strong= link_to activity.trackable.title, activity.trackable.attached_doc.url
+%span has been added to
+%span= link_to activity.trackable.lesson.title, [activity.trackable.lesson.course, activity.trackable.lesson]
+%span lesson in
+%span= link_to activity.trackable.lesson.course.title, activity.trackable.lesson.course
+%span course by
+%span= link_to "#{activity.owner.displayName}.", activity.owner
