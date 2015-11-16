@@ -1,0 +1,8 @@
+%span New test
+%strong= link_to activity.trackable.title, [activity.trackable.lesson, activity.trackable]
+%span has been added to
+%strong= link_to activity.trackable.lesson.title, [activity.trackable.lesson.course, activity.trackable.lesson]
+%span lesson in
+%strong= link_to activity.trackable.lesson.course.title, activity.trackable.lesson.course
+%span course by
+%strong= link_to activity.owner.displayName, activity.owner
