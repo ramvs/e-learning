@@ -7,7 +7,7 @@ body {
   padding-top: 60px;
   height: 100%;
   #container {
-   min-height: 80%;
+    min-height: 80%;
   }
 }
 
@@ -26,7 +26,7 @@ textarea {
   }
 }
 
-.label{
+.label {
   a {
     color: white !important;
   }
@@ -36,42 +36,48 @@ footer {
   margin-top: 45px;
   padding-top: 5px;
   border-top: 1px solid #eaeaea;
+  background-color: #222222;
+  color: white;
+  padding: 15px 0px 15px 0px;
+  text-align: center;
+  width: 100%;
+  clear: both;
+  min-height: 70px;
+
   a {
     color: #555;
-    &:hover{
-      color:#222;
+    &:hover {
+      color: #222;
     }
   }
 
   small {
-    float:left;
+    float: left;
   }
 
-  ul{
-    float:right;
-    list-style:none;
-    li{
-      float:left;
-      margin-left:10px;
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 10px;
     }
   }
 }
 
-
 .name {
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  max-width:175px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 175px;
 }
-
 
 .debug_dump {
   clear: both;
   float: left;
   width: 100%;
   margin-top: 45px;
-   -moz-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
